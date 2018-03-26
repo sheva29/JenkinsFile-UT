@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.lesfurets:jenkins-pipeline-unit:1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lesfurets/jenkins-pipeline-unit/1.0/3aa90c606c541e88c268df3cc9e87306af69b29f/jenkins-pipeline-unit-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lesfurets/jenkins-pipeline-unit/1.0/46899f409e4cf4128876b832932eefafed701d91/jenkins-pipeline-unit-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.cloudbees:groovy-cps:1.12">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cloudbees/groovy-cps/1.12/d766273a59e0b954c016e805779106bca22764b9/groovy-cps-1.12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.cloudbees/groovy-cps/1.12/e97b49479548d8e82bc93f0d7a7e3edda43f4039/groovy-cps-1.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+def execute() {
+   node() {
+       stage("build") {
+            sh "./gradlew clean build"
+       }
+
+       stage("test") {
+            sh "./gradlew test"
+       }
+   }
+}
+
+return this

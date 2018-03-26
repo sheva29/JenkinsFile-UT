@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JenkinsFileTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-03-26T14:18:13" hostname="Mauricio-Duque-1813" time="0.525">
+  <properties/>
+  <testcase name="test order of steps in jenkins file" classname="JenkinsFileTest" time="0.481"/>
+  <testcase name="test sh calls gradlew build" classname="JenkinsFileTest" time="0.043"/>
+  <system-out><![CDATA[   JenkinsFile.run()
+   JenkinsFile.execute()
+      JenkinsFile.node(groovy.lang.Closure)
+         JenkinsFile.stage(build, groovy.lang.Closure)
+            JenkinsFile.sh(./gradlew clean build)
+         JenkinsFile.stage(test, groovy.lang.Closure)
+            JenkinsFile.sh(./gradlew test)
+   JenkinsFile.run()
+   JenkinsFile.execute()
+      JenkinsFile.node(groovy.lang.Closure)
+         JenkinsFile.stage(build, groovy.lang.Closure)
+            JenkinsFile.sh(./gradlew clean build)
+         JenkinsFile.stage(test, groovy.lang.Closure)
+            JenkinsFile.sh(./gradlew test)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
