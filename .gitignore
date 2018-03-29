@@ -21,7 +21,7 @@
 #build and idea foler
 .idea
 .gradle
-build/*
+build
 DS_Store
 
 
