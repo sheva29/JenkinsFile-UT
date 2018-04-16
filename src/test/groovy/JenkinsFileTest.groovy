@@ -43,5 +43,4 @@ class JenkinsFileTest extends BasePipelineTest {
         assert testIndex != 0
         assert buildIndex < testIndex
     }
-
 }

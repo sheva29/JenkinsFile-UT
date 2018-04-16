@@ -21,7 +21,7 @@
 .idea
 .gradle
 build
-DS_Store
+.DS_Store
 
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
