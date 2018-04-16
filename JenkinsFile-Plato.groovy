@@ -4,7 +4,6 @@ timestamps {
             lock(resource: "lock_${env.BRANCH_NAME}", inversePrecedence: true) {
                 stage('Cleanup workspace before build') {
                     deleteDir()
-                    sh "echo 1"
                 }
 
                 stage('Checkout the code') {
