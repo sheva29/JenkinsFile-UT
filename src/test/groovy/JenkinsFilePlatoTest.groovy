@@ -10,11 +10,11 @@ class JenkinsFilePlatoTest extends BasePipelineTest {
     ArrayList<ArrayList<String>> expectedResults = new ArrayList<ArrayList<String>>(){{
 
         add(new ArrayList<String>(Arrays.asList("Cleanup workspace before build")))
-        add(new HashSet<String>(Arrays.asList("Checkout the code")))
-        add(new HashSet<String>(Arrays.asList("Unit tests", "Push Ansible to S3", "Start instances")))
-        add(new HashSet<String>(Arrays.asList("Build and push docker images for App and Properties", "Integration tests")))
-        add(new HashSet<String>(Arrays.asList("Check that instances become healthy")))
-        add(new HashSet<String>(Arrays.asList("Functional tests")))
+        add(new ArrayList<String>(Arrays.asList("Checkout the code")))
+        add(new ArrayList<String>(Arrays.asList("Unit tests", "Push Ansible to S3", "Start instances")))
+        add(new ArrayList<String>(Arrays.asList("Build and push docker images for App and Properties", "Integration tests")))
+        add(new ArrayList<String>(Arrays.asList("Check that instances become healthy")))
+        add(new ArrayList<String>(Arrays.asList("Functional tests")))
     }};
 
     @Override
@@ -57,8 +57,8 @@ class JenkinsFilePlatoTest extends BasePipelineTest {
 
     @Test
     void "test sh calls gradlew build"() throws Exception {
-        loadScript("JenkinsFile-Plato.groovy")
-        printCallStack()
+        loadScript("../../JenkinsFile-Plato.groovy")
+        //printCallStack()
 
         def jenkinsCommands = helper.callStack
 
