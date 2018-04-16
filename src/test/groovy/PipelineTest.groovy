@@ -38,9 +38,9 @@ class PipelineTest extends BasePipelineTest {
 
     class Docker {
         void build(Object image, String param){}
-        Image image(GStringImpl imageName){return new Image()}
+        Image image(String imageName){return new Image()}
         class Image{
-            void inside(GStringImpl string, Closure closure){}
+            String inside(String string, Closure closure){return string;}
             void inside(Closure closure){}
         }
     }
