@@ -14,33 +14,37 @@ timestamps {
                 def javaAwscliDockerImage = "java-awscli-docker:${UUID.randomUUID()}"
                 def dockerContainerOptions = buildDockerCapableContainer(javaAwscliDockerImage)
 
+                def unitTestCommand = './gradlew --stacktrace clean build test -q'
+                def pushAnsibleCommand = "tar zcvf ./box-startup.tgz ./box-startup && aws s3 cp ./box-startup.tgz s3://infrastructure-deploy-nyt-net/ecmcore/dev/container-demo/${GIT_COMMIT.substring(0, 7)}.tgz"
+                def startInstancesCommand = "./pipeline/start_instances.bash"
+
+                def unit_test = {
+                    docker.image(javaAwscliDockerImage).inside(gradleCacheVolumeMount + dockerContainerOptions) {
+                        sh unitTestCommand
+                    }
+                }
                 parallel (
-                        'Unit tests' : {
-                            docker.image(javaAwscliDockerImage).inside (gradleCacheVolumeMount + dockerContainerOptions) {
-                                sh './gradlew --stacktrace clean build test -q'
-                            }
-                        },
+                        'Unit tests' : unit_test,
 
                         'Push Ansible to S3' : {
-                            docker.image(javaAwscliDockerImage).inside() {
-                                sh """ tar zcvf ./box-startup.tgz ./box-startup &&\
-                                aws s3 cp ./box-startup.tgz s3://infrastructure-deploy-nyt-net/ecmcore/dev/container-demo/${GIT_COMMIT.substring(0, 7)}.tgz """
-                            }
+                            executeShellCommand(javaAwscliDockerImage, pushAnsibleCommand)
                         },
 
                         'Start instances' : {
+
                             withCredentials([string(credentialsId: 'Nimbul_API_Key_Ecmcore_Dev_Admins', variable: 'nimbul_api_token')]) {
                                 docker.image(javaAwscliDockerImage).inside() {
-                                    sh './pipeline/start_instances.bash'
+                                    sh startInstancesCommand
                                 }
                             }
                         }
                 )
 
+                def buildAndPushDockerImageCommand = './gradlew dockerPushAppAndProperties'
                 parallel (
                         'Build and push docker images for App and Properties' : {
                             docker.image(javaAwscliDockerImage).inside (gradleCacheVolumeMount + dockerContainerOptions) {
-                                sh './gradlew dockerPushAppAndProperties'
+                                sh buildAndPushDockerImageCommand
                             }
                         },
 
@@ -49,11 +53,12 @@ timestamps {
                         }
                 )
 
+                def checkInstancesStatus = './pipeline/check_instances_become_ready.bash'
                 timeout(5) {
                     stage('Check that instances become healthy')  {
                         withCredentials([string(credentialsId: 'Nimbul_API_Key_Ecmcore_Dev_Admins', variable: 'nimbul_api_token')]) {
                             docker.image(javaAwscliDockerImage).inside() {
-                                sh './pipeline/check_instances_become_ready.bash'
+                                sh checkInstancesStatus
                             }
                         }
                     }
@@ -67,6 +72,11 @@ timestamps {
     }
 } // ansiColor timestamps
 
+def executeShellCommand(String javaAwscliDockerImage, String command) {
+    docker.image(javaAwscliDockerImage).inside() {
+        sh command
+    }
+}
 String buildDockerCapableContainer(String imageId) {
     def userId = sh (
             script: "id --user",
